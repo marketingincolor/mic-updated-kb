@@ -1,0 +1,146 @@
+/*Stylesheet for KB*/
+
+    /*
+    * This was the fix for column padding.
+    * 
+    * 1. Removed all unecessary elements.
+    * 2. Stripped classes and IDs
+    * 3. Made sure divs closed properly
+    * 4. Within large-3 columns wrapped elements with .borders class
+    * 
+    * In addition I completely removed the entire css file
+    */
+    
+    .box { height: 150px; display: block;  margin-bottom: 2em; }
+    h2 a { color: #6a6b6d !important; }
+    .title { 
+        text-align: center; 
+        top:60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position:absolute;
+    }
+    #category-icon { 
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%,-50%);
+    }
+    .borders { border: 1px solid #ddd; height: 150px; border-radius: 5px; width:100%;}
+    .sub-borders {  height: 150px; border-radius: 5px; width:100%; }
+    div .borders:hover { border-color:#6a6b6d; }
+    a.titles:hover { text-decoration: underline; color: #6a6b6d; }
+    .mic-count {     
+        color: #fff;
+        font-size: 14px;
+        width: 88px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+        font-weight: 400;
+        float: right;
+        display: block;
+        position: absolute;
+        bottom:0px;
+        color:gray;
+        text-align:center;
+        transform: translate(-50%, 0%);
+        left: 50%;
+    }
+
+    .mic-read-more {
+        font-weight: bold;
+        border-radius: 15px;
+        background-color: transparent;
+        border: 2px solid #898a8e;
+        color: #898a8e;
+        padding: 5px 15px;
+        display: inline-block;
+        margin-top: 10px;
+        vertical-align: top;
+    }
+
+    .mic-read-more:hover {
+        border-color: transparent;
+        color: #fff !important;
+        background-color: #898a8e;
+    }
+
+    .mic-faq-inner { margin-bottom: 48px; }
+
+    .mic-breadcrum {
+        
+    }
+    .mic-breadcrum {
+        overflow: hidden;
+        width: 100%;
+    }
+    .mic-breadcrum ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .mic-breadcrum ul li:first-child:after {
+        float: left;
+        content:" ";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li:after {
+        float: left;
+        content:"\003e";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li {
+        float: left;
+        content:"\003e";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li:last-child{
+        background: none;
+    }
+    .mic-breadcrum ul li:first-child {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .mic-breadcrum ul li a {
+        text-decoration: none;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    input[type="text"] {
+        border: 3px solid #ddd;
+        border-radius: 5px;
+        background-color: transparent;
+        height: 50px;
+        color: #6a6b6d !important;
+        padding: 0 0 0 1em;
+    }
+
+    input[type="text"]:focus {
+    
+        border-color: #898a8e;
+        background-color: rgba(255,255,255, 0.6);
+        color: #000;
+    }
+    
+    /*All Card blocks*/
+    #blocks { margin-bottom:48px; }
+
+    #blocks div div h2 { font-size:1rem; }
+
+    #mic-kb-container { margin:48px; min-height:300px; }
+    .mic-kb-title { font-size:1.75em; color: #898a8e; }
+
+    #mic-kb-container > div > ul > li { margin-bottom: 13px; }
+    #all-subcategories { float: left; }
+    .sub-category { display:block; margin-bottom:13px;}
+    .card { height: 200px; }
+    .article-title { color:#898a8e; font-weight:bold; display:block; margin-bottom:7px; font-size:18px; }
+    #right-content { float:right; }
+    .post-meta { margin-bottom:1em;}
+    #right-content > div > div > p { margini-top:.4em; }
+    .fa { margin-right: .4em; }

@@ -1,0 +1,128 @@
+/*Stylesheet for KB*/
+
+    /*
+    * This was the fix for column padding.
+    * 
+    * 1. Removed all unecessary elements.
+    * 2. Stripped classes and IDs
+    * 3. Made sure divs closed properly
+    * 4. Within large-3 columns wrapped elements with .borders class
+    * 
+    * In addition I completely removed the entire css file
+    */
+    
+    .box { height: 150px; display: block;  margin-bottom: 2em; }
+    .borders { border: 1px solid gray; width: 100%;}
+    h2 a { color: #6a6b6d !important; }
+    .title { 
+        text-align: center; 
+        top:50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position:absolute;
+    }
+    .borders { border: 1px solid gray; height: 150px; border-radius: 5px; }
+    .mic-count {     
+        color: #fff;
+        font-size: 14px;
+        width: 88px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+        font-weight: 400;
+        float: right;
+        display: block;
+        position: absolute;
+        bottom:0px;
+        color:gray;
+        text-align:center;
+        transform: translate(-50%, 0%);
+        left: 50%;
+    }
+
+    .mic-read-more {
+        font-weight: bold;
+        border-radius: 15px;
+        background-color: transparent;
+        border: 2px solid #898a8e;
+        color: #898a8e;
+        padding: 5px 15px;
+        display: inline-block;
+        margin-top: 10px;
+        vertical-align: top;
+    }
+
+    .mic-read-more:hover {
+        border-color: transparent;
+        color: #fff !important;
+        background-color: #898a8e;
+    }
+
+    .mic-faq-inner { margin-bottom: 48px; }
+
+    .mic-breadcrum {
+        
+    }
+    .mic-breadcrum {
+        overflow: hidden;
+        width: 100%;
+    }
+    .mic-breadcrum ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .mic-breadcrum ul li:first-child:after {
+        float: left;
+        content:" ";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li:after {
+        float: left;
+        content:"\003e";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li {
+        float: left;
+        content:"\003e";
+        padding: 0 13px 2px 7px;
+        line-height: 22px;
+    }
+    .mic-breadcrum ul li:last-child{
+        background: none;
+    }
+    .mic-breadcrum ul li:first-child {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .mic-breadcrum ul li a {
+        text-decoration: none;
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    input[type="text"] {
+        border: 3px solid #fff;
+        border-radius: 50px;
+        background-color: transparent;
+        height: 30px;
+        color: #fff;
+        padding: 0 0 0 1em;
+    }
+
+    input[type="text"]:focus {
+    
+        border-color: #fff;
+        background-color: rgba(255,255,255, 0.6);
+        color: #000;
+    }
+    
+    /*All Card blocks*/
+    #blocks { margin-bottom:48px; }
+
+    #blocks div div h2 { font-size:1rem; }
+
+    #mic-kb-container { margin:48px; min-height:300px; }
+    .mic-kb-title { font-size:1.75em; color: #898a8e; }
