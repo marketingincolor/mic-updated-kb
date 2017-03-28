@@ -10,6 +10,8 @@
     * 
     * In addition I completely removed the entire css file
     */
+   
+   .post-meta .fa { margin-bottom: 7px; }
     
     .box { height: 150px; display: block;  margin-bottom: 2em; }
     h2 a { color: #6a6b6d !important; }
@@ -27,7 +29,17 @@
         transform: translate(-50%,-50%);
     }
     .borders { border: 1px solid #ddd; height: 150px; border-radius: 5px; width:100%;}
-    .sub-borders {  height: 150px; border-radius: 5px; width:100%; }
+    .sub-borders {  
+        height: 180px;  
+        width:100%;     
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%; 
+        padding: 15px;
+        overflow: hidden;
+    }
+    .tax-blocks { height:150px; }
+    div .sub-borders:hover { border-color: #6a6b6d; }
     div .borders:hover { border-color:#6a6b6d; }
     a.titles:hover { text-decoration: underline; color: #6a6b6d; }
     .mic-count {     

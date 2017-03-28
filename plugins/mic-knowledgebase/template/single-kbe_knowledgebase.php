@@ -1,6 +1,30 @@
 <?php
     get_header('knowledgebase');
-    
+        function getPostViews($postID){
+        $count_key = 'post_views_count';
+        $count = get_post_meta($postID, $count_key, true);
+        if($count==''){
+            delete_post_meta($postID, $count_key);
+            add_post_meta($postID, $count_key, '0');
+            return "0 View";
+        }
+        return $count.' Views';
+    }
+
+    function setPostViews($postID) {
+        $count_key = 'post_views_count';
+        $count = get_post_meta($postID, $count_key, true);
+        if($count==''){
+            $count = 0;
+            delete_post_meta($postID, $count_key);
+            add_post_meta($postID, $count_key, '0');
+        }else{
+            $count++;
+            update_post_meta($postID, $count_key, $count);
+        }
+    }
+    remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
     // load the style and script
     wp_enqueue_style ( 'kbe_theme_style' );
     if( kbe_SEARCH_SETTING == 1 ){
@@ -37,11 +61,22 @@
                 <?php
                     while(have_posts()) :
                         the_post();
-
+                    ?>
+                        <div class="entry-header">
+                            <?php
+                                the_title( '<h1 class="entry-title gray">', '</h1>' );
+                            ?>
+                        </div><!-- .entry-header -->
+                    <?php
                         //  Never ever delete it !!!
                         kbe_set_post_views(get_the_ID());
-                ?>
-                        <h1><?php the_title(); ?></h1>
+                    ?>
+                        <?php 
+                            setPostViews(get_the_ID());
+                            echo '<i class="fa fa-eye" aria-hidden="true"></i>';
+                            echo getPostViews(get_the_ID()); 
+                        ?>
+
                     <?php 
                         the_content();
                         if(kbe_COMMENT_SETTING == 1){

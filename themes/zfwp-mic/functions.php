@@ -207,7 +207,7 @@ add_action( 'init', 'add_excerpt_support_for_pages' );
 
 // Alter length of the Excerpt.
 function custom_excerpt_length( $length ) {
-	return 10;
+	return 8;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
@@ -536,32 +536,3 @@ function custom_add_post_length_custom_dimension()
 	}
 }
 add_action ('wp_head','custom_add_post_length_custom_dimension');
-
-/**
- * Author - Adam Doe
- * Date   - 10-08-2016
- * Index - 4
- * Custom Dimension - Post Category
- */
-
-function custom_dimension_post_category()
-{
-	// Post category
-	if ( is_single() ) {
-		global $post;
-		$post_categories = wp_get_object_terms( $post->ID, 'category', array( 'fields' => 'slugs' ) );
-		if ( ! empty( $post_categories ) && ! is_wp_error( $post_categories ) ) {
-			$post_categories = implode( ' ' , $post_categories );
-			echo "<script>
-
-			window.dataLayer.push({
-				'micPostCategory' : '" . $post_categories . "',
-				'event' : 'Category Push'
-		});
-		</script>";
-		}
-	}
-}
-add_action('wp_head', 'custom_dimension_post_category' );
-
-

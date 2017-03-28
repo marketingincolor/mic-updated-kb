@@ -74,74 +74,22 @@ $header_class = 'header-base';
 	</script>
 </head>
 
-<body <?php body_class(); ?>>
-
-	<!-- Google Tag Manager -->
-	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLNW5X"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-TLNW5X');</script>
-	<!-- End Google Tag Manager -->
-	
-	<div class="<?php echo $header_class; ?> NOTorange-bg NOTcontain-to-grid NOTrow NOTlarge-collapse hide-for-small-down">
+<body <?php body_class(); ?>>	
+	<div class="<?php echo $header_class; ?> NOTorange-bg NOTcontain-to-grid NOTrow NOTlarge-collapse">
         <header id="masthead" class="site-header" role="banner">
 			<div class="row">
-				<div id="logo" class="small-12 hide-for-small-down columns" itemscope itemtype="http://schema.org/Organization">
+				<div id="logo" class="small-12 columns" itemscope itemtype="http://schema.org/Organization">
 					<a itemprop="url" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img itemprop="logo" src="<?php echo get_template_directory_uri(); ?>/img/mic-grfx-header-logo.png" alt="Company Logo" /></a>
 				</div>
             </div>
             <div class="row">
-				<div id="description" class="small-12 hide-for-small-down columns">
+				<div id="description" class="small-12 columns">
 					<h3><?php bloginfo( 'description' ); ?></h3>
 				</div>
             </div>
-
-            <!-- <div class="row">
-                <div class="show-for-medium-up medium-12 columns">
-                    <div class="row">
-                        <div class="small-4 small-offset-2 columns"><?php do_action( display_social_media_icons('header') );?></div>
-						<div class="small-4 columns end">			                	
-							<div class="header-search-form">
-			                	<div class="search-zoom search-btn"><input value="Search" type="submit"></div>
-					                <!--search field-->
-					                <?php
-					                    #kbe_search_form();
-					                    
-					                ?>
-<!-- 				                </div>
-			            </div>
-
-                    </div>
-                </div>
-			</div>  -->
 		</header>
 	</div>
-
-<?php if ( is_front_page() ) { ?>
-
-	<div class="<?php echo $header_class; ?> show-for-small-down">
-		<header id="masthead" class="site-header" role="banner">
-			<div id="mobile-nav" class="small-12 show-for-small-down" style="text-align:center;">
-				<?php include get_template_directory() . '/includes/mobile-nav.php'; ?>
-			</div>
-		</header>
-	</div>
-
-<?php } else { ?>
-
-	<div class="<?php echo $header_class; ?> show-for-small-down stick-left">
-		<div id="mobile-nav" class="small-12 show-for-small-down" style="text-align:center;">
-			<div class="brgr-ico"><i id="burger" class="fa fa-bars"></i></div>
-			<?php include get_template_directory() . '/includes/mobile-nav.php'; ?>
-		</div>
-	</div>
-
-<?php }  ?>
-
-    <div id="site-cta" class="contain-to-grid green-bg hide-for-small-down">
+    <div id="site-cta" class="contain-to-grid green-bg">
         <div class="row">
             <div class="small-12 columns">
 

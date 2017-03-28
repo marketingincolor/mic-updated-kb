@@ -177,7 +177,7 @@
                                 $kbe_count_sum_parent = $kbe_taxonomy_parent_count;
                             }
             ?>
-                    <div class="small-12 medium-6 large-3 columns box">
+                    <div class="small-12 medium-6 large-3 columns box end">
                         <div class="borders">
                             <span id="category-icon">
                             <?php  
