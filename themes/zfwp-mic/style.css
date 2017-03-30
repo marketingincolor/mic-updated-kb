@@ -443,7 +443,7 @@ article h2{font-weight:bold;font-size:28px}
 #circle-nav li{margin:0.75em 3em 29px 3em}
 #services-list #services-list-title a,#services-list #services-list-title a:hover,#services-list #services-list-title a:visited{font-size:1.2em;font-weight:bold;color:#898a8e;padding-left:4px}
 .entry-content .display-posts-listing-examples .listing-item .title{clear:none}
-.footer-box{text-align:center;border-right:1px solid #fff}
+.footer-box{text-align:center;}
 hr{border:solid #ddd;border-width:1px 0 0;clear:both;height:0;margin:1.25rem 0 1.1875rem}
 #circle-nav li{margin:0.75em 3em 29px}
 .four-o-four .page-header .page-title{font-weight:bold;font-style:italic;font-size:144px;text-align:left;margin:0;line-height:normal}}
@@ -460,3 +460,36 @@ hr{border:solid #ddd;border-width:1px 0 0;clear:both;height:0;margin:1.25rem 0 1
 .format-gallery .entry-content .meteor-nav .prev a{background:rgba(0, 0, 0, 0.2) url(//marketingincolor.com/wp-content/plugins/meteor-slides/images/ig-prev.png) no-repeat scroll left center}
 .format-gallery .entry-content .meteor-nav .next a:hover{background:rgba(0, 0, 0, 0.1) url(//marketingincolor.com/wp-content/plugins/meteor-slides/images/ig-next.png) no-repeat scroll left center}
 .format-gallery .entry-content .meteor-nav .next a{background:rgba(60, 0, 0, 0.2) url(//marketingincolor.com/wp-content/plugins/meteor-slides/images/ig-next.png) no-repeat scroll right center}
+
+/*Login Styles*/
+#wp-submit{ 
+	cursor: pointer;
+	display:block; 
+	margin: 0 auto;
+    font-weight: bold;
+    border-radius: 15px;
+    background-color: transparent;
+    border: 2px solid #898a8e;
+    color: #898a8e;
+    padding: 5px 15px;
+}
+
+#wp-submit:hover {
+	cursor:pointer;
+    color: #fff !important;
+    background-color: #898a8e;
+}
+
+input[type="password"] {
+    border: 3px solid #ddd;
+    border-radius: 5px;
+    background-color: transparent;
+    height: 50px;
+    color: #6a6b6d !important;
+    padding: 0 0 0 1em;
+}
+#mic-kb-container-login {
+	margin: 75px 0px;
+	min-height:300px; 
+}
+.tml-form-table { width: 100%; }
