@@ -435,7 +435,7 @@ function st_add_live_search () {
     </script>
 <?php }
 }
-add_action('wp_footer', 'st_add_live_search');
+//add_action('wp_footer', 'st_add_live_search');
 
 /**
  * Load a template.
