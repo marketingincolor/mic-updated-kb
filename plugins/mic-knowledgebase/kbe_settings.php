@@ -224,7 +224,7 @@
                                     <label><?php _e('Question #7','kbe'); ?></label>
                                 </td>
                                 <td colspan="3">
-                                    <input type="text" name="kbe_settings[kbe_faq1]" id="kbe_faq7" value="<?php echo esc_attr( $kbe_settings['kbe_faq7'] ); ?>">
+                                    <input type="text" name="kbe_settings[kbe_faq7]" id="kbe_faq7" value="<?php echo esc_attr( $kbe_settings['kbe_faq7'] ); ?>">
                                 </td>
                             </tr>
                             <tr>

@@ -5,6 +5,6 @@ jQuery( document ).ready(function() {
     // jQuery('.kbe_categories').addClass('row');
     // // jQuery('.kbe_content_full').css('width', '960px !important');
     jQuery('.box').addClass('end');
-    jQuery('.card').addClass('end');
+    //jQuery('.card').addClass('end');
     s
 });

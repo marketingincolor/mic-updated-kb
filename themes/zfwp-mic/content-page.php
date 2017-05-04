@@ -50,7 +50,6 @@ endif;
 	</div>
 
 	<div class="entry-content<?php echo ' '.$the_parent_post->post_name; ?>">
-
 		<?php if ( has_post_thumbnail() ) : ?>
 			<div class="entry-thumbnail<?php echo '-'.$the_parent_post->post_name; ?>">
 				<?php if ( ($post->post_parent > 0 ) && ( $the_parent_post->post_name == 'about' ) ) :

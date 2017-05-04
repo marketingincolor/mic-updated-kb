@@ -11,6 +11,112 @@
  
  define( 'kbe_VERSION', '1.0.0' );
 
+// // ADD Permission Form Field
+// global $wpdb;
+
+// $row = $wpdb->get_results(  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+// WHERE table_name = 'wp_terms' AND column_name = 'permission'"  );
+
+// if(empty($row)){
+// $wpdb->query("ALTER TABLE wp_terms ADD permission VARCHAR(200) NOT NULL");
+// }
+
+// ADD META DATA
+// This is where we add user roles caps to categories
+$permissions = array(
+    'read_rca' => __('Regulatory Compliance Associates', 'MIC Knowledgebase'),
+    'read_mic' => __('Marketing In Color', 'MIC Knowledgebase'),
+);
+
+add_action( 'kbe_taxonomy_add_form_fields', 'add_permission_dropdown', 10, 2 );
+function add_permission_dropdown($taxonomy) {
+    global $permissions;
+    ?><div class="form-field term-group">
+        <label for="featuret-group"><?php _e('Permissions', 'MIC Knowledgebase'); ?></label>
+        <select class="postform" id="equipment-group" name="permission-group">
+            <option value="-1"><?php _e('none', 'my_plugin'); ?></option><?php foreach ($permissions as $_group_key => $_group) : ?>
+                <option value="<?php echo $_group_key; ?>" class=""><?php echo $_group; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div><?php
+}
+
+//SAVE META DATA
+add_action( 'created_kbe_taxonomy', 'save_permission_meta', 10, 2 );
+
+function save_permission_meta( $term_id, $tt_id ){
+    if( isset( $_POST['permission-group'] ) && '' !== $_POST['permission-group'] ){
+        $group = sanitize_title( $_POST['permission-group'] );
+        add_term_meta( $term_id, 'permission-group', $group, true );
+    }
+}
+
+// UPDATE TERM META
+add_action( 'kbe_taxonomy_edit_form_fields', 'kbe_taxonomy_edit_permission_field', 10, 2 );
+
+function kbe_taxonomy_edit_permission_field( $term, $taxonomy ){
+                
+    global $permissions;
+          
+    // get current group
+    $permission_group = get_term_meta( $term->term_id, 'permission-group', true );
+                
+    ?><tr class="form-field term-group-wrap">
+        <th scope="row"><label for="feature-group"><?php _e( 'Permissions', 'my_plugin' ); ?></label></th>
+        <td><select class="postform" id="feature-group" name="permission-group">
+            <option value="-1"><?php _e( 'none', 'my_plugin' ); ?></option>
+            <?php foreach( $permissions as $_group_key => $_group ) : ?>
+                <option value="<?php echo $_group_key; ?>" <?php selected( $permission_group, $_group_key ); ?>><?php echo $_group; ?></option>
+            <?php endforeach; ?>
+        </select></td>
+    </tr><?php
+}
+
+// RESAVE TERM META FROM UPDATE FIELD
+add_action( 'edited_kbe_taxonomy', 'update_permission_meta', 10, 2 );
+
+function update_permission_meta( $term_id, $tt_id ){
+
+    if( isset( $_POST['permission-group'] ) && '' !== $_POST['permission-group'] ){
+        $group = sanitize_title( $_POST['permission-group'] );
+        update_term_meta( $term_id, 'permission-group', $group );
+    }
+}
+
+// DISPLAY TERM META
+add_filter('manage_edit-kbe_taxonomy-columns', 'add_permission_column' );
+
+function add_permission_column( $columns ){
+    $columns['permission_group'] = __( 'Permissions', 'MIC Knowledgebase' );
+    return $columns;
+}
+
+add_filter('manage_kbe_taxonomy_custom_column', 'add_kbe_taxonomy_column_content', 10, 3 );
+
+function add_kbe_taxonomy_column_content( $content, $column_name, $term_id ){
+    global $permissions;
+
+    if( $column_name !== 'permission_group' ){
+        return $content;
+    }
+
+    $term_id = absint( $term_id );
+    $permission_group = get_term_meta( $term_id, 'permission-group', true );
+
+    if( !empty( $permission_group ) ){
+        $content .= esc_attr( $permission_groups[ $permission_group ] );
+    }
+
+    return $content;
+}
+
+add_filter( 'manage_edit-kbe_taxonomy_sortable_columns', 'add_kbe_taxonomy_column_sortable' );
+
+function add_kbe_taxonomy_column_sortable( $sortable ){
+    $sortable[ 'permission_group' ] = 'permission_group';
+    return $sortable;
+}
+
 // Add Settings Submenu
 function kbe_options(){
     require_once 'kbe_settings.php';

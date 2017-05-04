@@ -49,7 +49,7 @@ function kbe_articles() {
         'capability_type'       => 	'post',
         'hierarchical'          => 	false,
         'supports'              => 	array('title','editor','thumbnail','comments','tags','revisions','author'),
-        'rewrite'               => 	$kbe_rewrite,
+        'rewrite'               => 	false,
         'show_in_menu'          => 	true,
         'show_in_nav_menus'     => 	true,
         'show_in_admin_bar'     => 	true,

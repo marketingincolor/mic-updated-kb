@@ -577,7 +577,8 @@ class Su_Data {
 								'default' => __( 'Default', 'shortcodes-ultimate' ),
 								'flat' => __( 'Flat', 'shortcodes-ultimate' ),
 								'light' => __( 'Light', 'shortcodes-ultimate' ),
-								'simple' => __( 'Simple', 'shortcodes-ultimate' )
+								'simple' => __( 'Simple', 'shortcodes-ultimate' ),
+                                'custom' => __('Custom', 'shortcodes-ultimate')
 							),
 							'default' => 'default',
 							'name' => __( 'Style', 'shortcodes-ultimate' ), 'desc' => __( 'Dropcap style preset', 'shortcodes-ultimate' )

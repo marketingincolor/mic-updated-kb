@@ -46,46 +46,101 @@ if(!empty($_GET['ajax']) ? $_GET['ajax'] : null) {
     }
 ?>
     <div id="mic-kb-container">
-
         <div class="row">
-            <div class="large-12 columns">
-                <?php
-                    $kbe_search_term = $_GET['s'];
+        <?php
+        $kbe_terms = get_terms( array ( 'taxonomy'=> kbe_POST_TAXONOMY, 'parent' => 0 ) );
+        $class = "large-9 columns";
+        $kbe_cat_slug = get_queried_object()->slug;
+        $mic_term_id = get_queried_object()->term_id;
+        $children = get_term_children($mic_term_id, kbe_POST_TAXONOMY);
+        $kbe_cat_name = get_queried_object()->name;
+        $kbe_tax_post_args = array(
+            'posts_per_page' => -1,
+            'paged' => $paged,
+            'post_type' => 'kbe_knowledgebase',
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => kbe_POST_TAXONOMY,
+                    'field' => 'slug',
+                    'terms' => $kbe_cat_slug,
+                    'include_children' => 1
+                ),
+            ),
+        );
+        //var_dump($kbe_tax_post_args);
+        $display_blogs = new WP_Query($kbe_tax_post_args);
+        //var_dump($display_blogs);
+        ?>
+        <div class="large-3 columns">
+        <?php kbe_search_form(); ?>
+
+        <?php
+            foreach($kbe_terms as $kbe_taxonomy){
+
+                $queried_object = get_queried_object();
+                $term_id = $queried_object->term_id;
+                $kbe_term_id = $kbe_taxonomy->term_id;
+                $kbe_term_slug = $kbe_taxonomy->slug;
+                $kbe_term_name = $kbe_taxonomy->name;
+                $kbe_taxonomy_parent_count = $kbe_taxonomy->count;
+                $children = get_term_children($kbe_term_id, kbe_POST_TAXONOMY);
+                //var_dump($children);
+                $kbe_count_sum = $wpdb->get_var("SELECT Sum(count)
+                                                             FROM wp_term_taxonomy
+                                                             WHERE taxonomy = '".kbe_POST_TAXONOMY."'
+                                                             And parent = $kbe_term_id"
+                                                            );
+
+                $kbe_count_sum_parent = '';
+                if($children) {
+                    $kbe_count_sum_parent = $kbe_count_sum + $kbe_taxonomy_parent_count;
+                } else {
+                    $kbe_count_sum_parent = $kbe_taxonomy_parent_count;
+                }
                 ?>
-                <h1><?php _e('Search Results for: '.$kbe_search_term, 'kbe'); ?></h1>
-                <hr/>
-            </div>
+                <p class="category">
+                    <a href="<?php echo get_term_link($kbe_term_slug, 'kbe_taxonomy') ?>" class="titles">
+                        <?php echo $kbe_term_name; ?>
+                    </a>
+                </p>
+
+                <?php
+            }
+        ?>
         </div>
 
-        <div class="row">
-            <div class="large-12 columns">
-
-                    <?php
-                        while(have_posts()) :
-                            the_post();
-                    ?>
-                            <a href="<?php the_permalink(); ?>">
-                                <div class="mic-kb-title"><?php the_title(); ?></div>
-                            </a>
-                            <span class="post-meta">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                                <?php the_author(); ?>
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> <?php the_time('M. d, Y'); ?>
-                            </span>
-                            <p><?php echo kbe_short_content(300); ?></p>
-                            <hr />
+        <div class="large-9 columns shadow">
+            <?php
+                $kbe_search_term = $_GET['s'];
+            ?>
+            <h1><?php _e('Search Results for: '.$kbe_search_term, 'kbe'); ?></h1>
+            <hr/>
+        <?php
+            while(have_posts()) :
+                the_post();
+        ?>
+                <a href="<?php the_permalink(); ?>">
+                    <div class="mic-kb-title"><?php the_title(); ?></div>
+                </a>
+                <span class="post-meta">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                    <?php the_author(); ?>
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> <?php the_time('M. d, Y'); ?>
+                </span>
+                <p><?php echo kbe_short_content(300); ?></p>
+                <hr />
 <!--                             <div class="kbe_read_more">
-                                <a class="mic-read-more" href="<?php the_permalink(); ?>">
-                                    Read More
-                                </a>
-                            </div> -->
-                    <?php
-                        endwhile;
-                    ?>
-            </div>
+                    <a class="mic-read-more" href="<?php the_permalink(); ?>">
+                        Read More
+                    </a>
+                </div> -->
+        <?php
+            endwhile;
+        ?>
         </div>
-
-    </div>
+</div>
     
     <!--aside-->
     <div class="kbe_aside <?php echo $kbe_sidebar_class; ?>">

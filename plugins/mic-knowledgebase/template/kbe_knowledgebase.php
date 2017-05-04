@@ -1,15 +1,4 @@
 <?php
-    /*=========
-    Template Name: kbe
-    =========*/
-
-    $team = array(
-        42,
-        39,
-        40,
-        17
-    );
-
 
     get_header('knowledgebase');
     
@@ -37,9 +26,23 @@
     } elseif(kbe_SIDEBAR_HOME == 2) {
         $kbe_sidebar_class = 'kbe_aside_right';
     }
+    global $current_user;
+    get_currentuserinfo();
+    function mic_get_first($current_user)
+    {
+        if(strlen($current_user->first_name) >= 2 )
+        {
+            echo ', ' . $current_user->first_name;
+        }
+        else {
+            return;
+        }
+    }
+
+    if (is_user_logged_in()) {
 ?>
 <div id="mic-kb-container">
-    <h1 class="text-center">How can we help you?</h1><br/>
+    <h1 class="text-center">How can we help you<?php mic_get_first($current_user);?>?</h1><br/>
     <p class="text-center" style="margin-bottom:48px;">Choose a category to find the help you need</p>
     <div class="row">
         <div class="small-12 columns">
@@ -55,76 +58,25 @@
 
                     );
 
-                    /*
-                    * Author: Doe
-                    * Date: 03/01/2017
-                    * Purpose: Helper function to user later on for getting key value pairs.
-                     */
-                    function mic_setup_roles()
+                    function mic_get_permissions()
                     {
-                        $roles = array(
-                            'read_rca' => 37,
-                            'read_mic' => array(1,2,3),
-                        );
-                        return $roles;
-                    }
-
-                    /*
-                    * Author: Doe
-                    * Date: 03/01/2017
-                    * Purpose: Get the IDs for helper altering category loop
-                     */
-                    function mic_get_include_ids()
-                    {
-
-                        $roles = array(
-                            'read_rca' => 38,
-                            'read_mic' => array(34,2,24,1,3,4,5,6,7,8,9,10,11,12,13,14,15, 16, 43),                        
+                        // Enter permissions here.
+                        $permissions = array(
+                            'read_mic',
+                            'read_rca'
                         );
 
-                        $include_role_id = array();
-                        $exclude_role_id = array();
-                        foreach ($roles as $role => $role_cat_id) {
-                            if ( is_array($role_cat_id) ) {
-                                $role_cat_id = implode(" ", $role_cat_id);
-                            }
-                            if ( current_user_can ($role) )
-                            {
-                                array_push($include_role_id, $role_cat_id);
-                            }
-                            else {
-                                array_push($exclude_role_id, $role_cat_id);
-                            }
-                        }
-                        $include_role_id = implode(" ", $include_role_id);
-                        return $include_role_id;
+                        // Find out who the user is.
+                        $user_id = get_current_user_id();
+                        $user_info = get_userdata($user_id);
+                        $user_roles = array();
+                        $user_roles = $user_info->roles;
+                        $permission = array_intersect($permissions, $user_roles);
+                        //var_dump($permission);
+                        $permission = implode('', $permission);
+                        return $permission;
                     }
 
-                    /*
-                    * Author: Doe
-                    * Date: 03/01/2017
-                    * Purpose: Finds roles that match user
-                     */
-                    function mic_get_read_roles()
-                    {
-
-                        $roles = array(
-                            'read_rca' => 38,
-                            'read_mic' => array(34,2,24,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,35),                        
-                        );
-                        $accepted_roles = array();
-                        $rejected_roles = array();
-                        foreach ($roles as $role => $id) {
-                            if ( current_user_can( $role ) ) {
-                                array_push($accepted_roles, $role);
-                            }
-                            else {
-                                array_push($rejected_roles, $role);
-                            }
-                        }
-                        $accepted_roles = implode(" && ", $accepted_roles);
-                        return $accepted_roles;
-                    }
 
                     /*
                     * Author: Doe
@@ -132,20 +84,22 @@
                     * Purpose: Alter the category loop to show only user specific categories
                      */
 
-                    if ( true && mic_get_read_roles() )
-                    {
                         $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
                         $kbe_cat_args = array(
                         'orderby'    => 'terms_order', 
                         'order'      => 'ASC',
                         'hide_empty' => true,
                         'parent'     => 0,
-                        'include'    => mic_get_include_ids(),
                         'fields' => 'all',
+                        'meta_query' => array(
+                            array(
+                               'key'       => 'permission-group',
+                               'value'     => mic_get_permissions(),
+                               'compare'   => 'LIKE'
+                            )
+                        )
 
                         );
-                    }
-
 
                 $kbe_terms = get_terms(kbe_POST_TAXONOMY, $kbe_cat_args, 'posts_per_page=3&paged=' . $paged);
                 ?>
@@ -177,7 +131,7 @@
                                 $kbe_count_sum_parent = $kbe_taxonomy_parent_count;
                             }
             ?>
-                    <div class="small-12 medium-6 large-3 columns box">
+                    <div class="small-12 medium-6 large-3 columns box end">
                         <div class="borders">
                             <span id="category-icon">
                             <?php  
@@ -205,27 +159,68 @@
                     </div>
                     <?php } ?>
             </div>
+            <?php if( !empty($kbe_settings['kbe_faq1']) || !empty($kbe_settings['kbe_faq2']) || !empty($kbe_settings['kbe_faq3']) || !empty($kbe_settings['kbe_faq4']) || !empty($kbe_settings['kbe_faq5'])|| !empty($kbe_settings['kbe_faq6']) || !empty($kbe_settings['kbe_faq7']) || !empty($kbe_settings['kbe_faq8']) || !empty($kbe_settings['kbe_faq9']) || !empty($kbe_settings['kbe_faq10'])) { ?>
             <div id="mic-faq" class="row">
                 <div class="small-12 columns">
                     <h2>Frequently Asked Questions</h2><br/>
                 </div>
                 <div class="small-12 large-6 columns">
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
+                    <p><?php echo $kbe_settings['kbe_faq1']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq2']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq3']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq4']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq5']; ?></p>
  
                 </div>
                 <div class="small-12 large-6 columns">
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
-                    <p>Lorem Ipsum Dolar</p>
+                    <p><?php echo $kbe_settings['kbe_faq6']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq7']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq8']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq9']; ?></p>
+                    <p><?php echo $kbe_settings['kbe_faq10']; ?></p>
  
                 </div>
             </div>
+            <?php } else { } ?>
 </div>
             <!--content-->
 <?php get_footer('knowledgebase'); ?>
+<?php } 
+else {
+    ?>
+<div class="row collapse medium-uncollapse">
+<div class="small-10 small-offset-1 columns">
+<div id="main-content"><!--classSmall12Columns-->
+    <section class="scroll-container" role="main">
+        <div class="small-12 medium-6 medium-offset-3 columns">
+        <div id="mic-kb-container-login">
+        <?php
+            if ( ! is_user_logged_in() ) { // Display WordPress login form:
+            $args = array(
+                'redirect' => admin_url(), 
+                'form_id' => 'mic-custom-login',
+                'label_username' => __( '' ),
+                'label_password' => __( '' ),
+                'label_remember' => __( 'Remember Me' ),
+                'label_log_in' => __( 'Log In' ),
+                'remember' => true
+            );
+            echo '<p class="text-center">Have an account? Sign In.</p>';
+            wp_login_form( $args );
+        } else { // If logged in:
+            wp_loginout( home_url() ); // Display "Log Out" link.
+            echo " | ";
+            wp_register('', ''); // Display "Site Admin" link.
+        }
+        ?>
+        </div>
+        </div>
+            </section>
+</div>
+    </div>
+</div>
+<?php get_footer('knowledgebase'); ?>
+        <?php
+}
+
+?>

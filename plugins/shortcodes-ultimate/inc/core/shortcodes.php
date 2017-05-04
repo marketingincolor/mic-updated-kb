@@ -177,7 +177,7 @@ class Su_Shortcodes {
 				'size'  => 3,
 				'class' => ''
 			), $atts, 'dropcap' );
-		$atts['style'] = str_replace( array( '1', '2', '3' ), array( 'default', 'light', 'default' ), $atts['style'] ); // 3.x
+		$atts['style'] = str_replace( array( '1', '2', '3'), array( 'default', 'light', 'default'), $atts['style'] ); // 3.x
 		// Calculate font-size
 		$em = $atts['size'] * 0.5 . 'em';
 		su_query_asset( 'css', 'su-content-shortcodes' );
